@@ -1,0 +1,145 @@
+let sum = 0
+
+let cards = []
+
+let hasBlackJack = false
+let isAlive = false
+let message = ""
+let messageEl = document.getElementById('message-el')
+let sumEl = document.getElementById('sum-el')
+let cardsEl = document.getElementById('cards-el')
+
+let gameOver = document.getElementById('game-over') 
+
+gameOver.textContent = ""
+
+//let display = " "
+
+//random cards 
+
+function getRandomCards() {
+  
+ let randomCard = Math.floor( Math.random() * 13) + 1
+  return randomCard
+  
+  if ( randomCard === 1){
+    return 11
+  }
+  else if ( randomCard === 11 || randomCard === 12 || randomCard === 13 ) {
+    
+    return 10
+  }
+  else {
+    return randomCard
+  }
+}
+
+//startGame function
+
+
+function startGame() {
+  
+  isAlive = true
+  
+  let firstCard = getRandomCards()
+  let secondCard = getRandomCards()
+  
+  sum = firstCard + secondCard
+  
+  cards = [ firstCard, secondCard]
+  renderGame()
+  getRandomCards()
+  
+}
+
+
+//renderGame function
+
+function renderGame() {
+  
+  //show cards
+  
+  cardsEl.textContent = "Cards: "
+  
+  for ( let i = 0; i < cards.length; i++) {
+    
+    cardsEl.textContent += cards[i] + " "
+  }
+  
+  if ( sum <= 20) {
+  
+    isAlive = true
+    
+    message = "Do you want to draw a new card?🙂"
+  
+}
+
+else if ( sum === 21) {
+  
+  message = "You've got Blackjack🥳"
+  
+  
+  hasBlackJack = true
+  
+}
+
+else if ( sum > 21) {
+  message =  "You're out of the game😔"
+  
+  isAlive = false
+  
+}
+
+sumEl.textContent = "Sum: " + sum
+messageEl.textContent = message
+
+gameOver.textContent = ""
+
+}
+
+//let load = document.getElementById('new-card')
+
+
+//newCard function
+
+function newCard() {
+  
+    
+    
+    let lastMessage = "Game Over😣"
+    
+    
+ if ( isAlive === true && hasBlackJack === false){
+   
+     let thirdCard = getRandomCards()
+     sum += thirdCard
+     
+     cards.push(thirdCard)
+     cardsEl.textContent = "Cards: " + cards
+ 
+     renderGame()
+ }
+ 
+ else{
+   
+   gameOver.textContent = lastMessage
+   
+ }
+ //thirdCard 
+ 
+  
+  
+  
+  //loading card
+  
+
+
+  //let number = ['New', 'card', 'loading...']
+ 
+// for ( let i = 0; i < number.length; i++) {
+   
+//   numberDisplay.textContent += number[i] + " "
+   
+ //}
+  
+}
